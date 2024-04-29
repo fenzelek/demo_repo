@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      args:
+        user: 0
+        uid: 1000
+      context: ./php/
+      dockerfile: Dockerfile
+    image: roster_backend
+    container_name: roster_php
+    restart: unless-stopped
+    environment:
+        PHP_IDE_CONFIG: "serverName=app"
+    working_dir: /var/www/
+    volumes:
+      - ../:/var/www
+    ports:
+        - "8000:8000"
+    networks:
+      - roster
+
+  nginx:
+    image: nginx:alpine
+    container_name: roster_web
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+    volumes:
+      - ../:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    working_dir: /var/www/public
+    links:
+        - app
+    networks:
+      - roster
+
+networks:
+  roster:
+    driver: bridge
+
+volumes:
+    dbdata:
+    node_modules:
+    vendor:
