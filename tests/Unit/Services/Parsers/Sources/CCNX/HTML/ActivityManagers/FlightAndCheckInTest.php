@@ -39,13 +39,16 @@ class FlightAndCheckInTest extends TestCase
         $domDocument = new DOMDocument();
         $domDocument->loadHTML($this->getHtml());
         $domXPath = new DOMXPath($domDocument);
-        $eventDispatcher = Mockery::mock(Dispatcher::class);
-        $app = $this->app;
 
-        $eventDispatcher->shouldReceive('dispatch')->twice()->with(ActivityProcessed::class);
         $activityDate = DateTime::createFromFormat('dMY', '10Jan2022');
-        // WHEN
+
+        $eventDispatcher = Mockery::mock(Dispatcher::class);
+        $eventDispatcher->shouldReceive('dispatch')->twice()->with(ActivityProcessed::class);
+
+        $app = $this->app;
         $flightManager = new FlightAndCheckIn($eventDispatcher, $app);
+
+        // WHEN
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
 
         // THEN
@@ -56,7 +59,7 @@ class FlightAndCheckInTest extends TestCase
     /**
      * @Feature parse roster data
      * @scenario html document
-     * @case Flight activities
+     * @case CheckIn activities
      * @expectation check if the times are set properly for checkin where start is the checkin time
      * @test
      */
@@ -72,12 +75,11 @@ class FlightAndCheckInTest extends TestCase
 
         $this->app->instance(ActivityProcessedListener::class, $listenerMock);
 
-        $app = $this->app;
-
         $activityDate = DateTime::createFromFormat('dMY', '10Jan2022');
 
-        // WHEN
         $flightManager = $this->app->make(FlightAndCheckIn::Class);
+
+        // WHEN
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
 
         // THEN
@@ -97,13 +99,12 @@ class FlightAndCheckInTest extends TestCase
     /**
      * @Feature parse roster data
      * @scenario html document
-     * @case Flight activities
+     * @case CheckIn activities
      * @expectation check if from & to are parsed correctly
      * @test
      */
     public function it_processes_flight_arrivals()
     {
-
         // GIVEN
         $domDocument = new DOMDocument();
 
@@ -115,12 +116,11 @@ class FlightAndCheckInTest extends TestCase
 
         $this->app->instance(ActivityProcessedListener::class, $listenerMock);
 
-        $app = $this->app;
-
         $activityDate = DateTime::createFromFormat('dMY', '10Jan2022');
 
-        // WHEN
         $flightManager = $this->app->make(FlightAndCheckIn::Class);
+
+        // WHEN
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
 
         // THEN

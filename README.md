@@ -28,5 +28,12 @@ Its also dockerized BUT keep in mind the docker settings are set only for testin
    docker exec -it roster_php chown -R www-data:www-data /var/www/database
    
    docker exec -it roster_php chmod -R 775 /var/www/database
+
+## Web pages
+THere are two pages made to easier check the solution
+localhost:8090 - the main page (welcome.blade.php) - used to upload file (for now only html CCNX files are parsed)
+http://localhost:8090/activity - the listing page with filter to show data (activity.blade.php)
+
+Please keep in mind that these are simple UI, mostly generated in 99% by AI
    
 

@@ -10,6 +10,7 @@ class ActivityResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'flight_number' => $this->FlightNumber,
             'type' => $this->Type,
             'from' => $this->From,
             'to' => $this->To,

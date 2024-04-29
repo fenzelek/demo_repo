@@ -19,12 +19,10 @@ class RosterFileControllerTest extends TestCase
      * @expectation parsed data stored in database
      * @test
      */
-    public function parse_file_and_check_database()
+    public function parse_fileParsed()
     {
-
-        Storage::fake('uploads'); // Ustawia fałszywe systemy plików dla systemów plików przestrzeni nazw
-
         // GIVEN
+        Storage::fake('uploads');
         $file = new UploadedFile(__DIR__ . '/Roster - CrewConnex.html', 'Roster - CrewConnex.html', null, null, true );
 
         // WHEN
@@ -48,6 +46,8 @@ class RosterFileControllerTest extends TestCase
      */
     public function parse_missing_file()
     {
+        // GIVEN
+
         // WHEN
         $response = $this->postJson(route('parse-file'), ['source_type' => 'CCNX'], ['X-CSRF-TOKEN' => csrf_token()]);
 

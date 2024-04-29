@@ -40,6 +40,7 @@ class FlightTest extends TestCase
 
         $eventDispatcher->shouldReceive('dispatch')->once()->with(ActivityProcessed::class);
         $activityDate = DateTime::createFromFormat('dMY', '10Jan2022');
+
         // WHEN
         $flightManager = new Flight($eventDispatcher, $app);
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
@@ -68,12 +69,11 @@ class FlightTest extends TestCase
 
         $this->app->instance(ActivityProcessedListener::class, $listenerMock);
 
-        $app = $this->app;
-
         $activityDate = DateTime::createFromFormat('dMY', '10Jan2022');
 
-        // WHEN
         $flightManager = $this->app->make(Flight::Class);
+
+        // WHEN
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
 
         // THEN
@@ -107,12 +107,11 @@ class FlightTest extends TestCase
 
         $this->app->instance(ActivityProcessedListener::class, $listenerMock);
 
-        $app = $this->app;
-
         $activityDate = DateTime::createFromFormat('dMY', '10Jan2022');
 
-        // WHEN
         $flightManager = $this->app->make(Flight::Class);
+
+        // WHEN
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
 
         // THEN

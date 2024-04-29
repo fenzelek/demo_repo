@@ -36,7 +36,6 @@ class ActivityController extends Controller
         }
 
         $activities = $query->get();
-        //return response()->json($activities);
 
         return ActivityResource::collection($activities);
     }

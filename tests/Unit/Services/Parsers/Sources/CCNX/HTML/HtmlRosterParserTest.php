@@ -23,7 +23,6 @@ class HtmlRosterParserTest extends TestCase
         $this->htmlFile = new UploadedFile(__DIR__ . '/Roster - CrewConnex.html', 'Roster - CrewConnex.html');
     }
 
-
     /**
      * @Feature parse roster data
      * @scenario html document
@@ -110,8 +109,6 @@ class HtmlRosterParserTest extends TestCase
                     ->andReturn($flightManagerMock);
 
         $factoryMock->shouldReceive('create')->andReturn($otherActivities);
-
-
 
         //WHEN
         $parser->parse($this->htmlFile);

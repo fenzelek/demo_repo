@@ -15,8 +15,14 @@ class ActivityProcessedListenerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_creates_activity_from_processed_data()
+    /**
+     * @Feature parse roster data
+     * @scenario html document
+     * @case data parsed and trying to store
+     * @expectation data stored in database
+     * @test
+     */
+    public function handle_createsDbRow()
     {
         // GIVEN
         $listener = new ActivityProcessedListener();
@@ -37,7 +43,6 @@ class ActivityProcessedListenerTest extends TestCase
         $activityDataMock->method('getStart')->willReturn($start);
         $activityDataMock->method('getEnd')->willReturn($end);
         $activityDataMock->method('getDate')->willReturn($activityDate);
-
 
         $event = new ActivityProcessed($activityDataMock);
 
