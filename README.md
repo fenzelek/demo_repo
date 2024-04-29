@@ -11,13 +11,21 @@ Its also dockerized BUT keep in mind the docker settings are set only for testin
     b) run command: docker-compose -p rooster up -d --build
 
 4. execute other commands to install dependencies
+   
    docker exec -it roster_php composer install
+   
    docker exec -it roster_php php artisan key:generate
+   
    docker exec -it roster_php npm install
+   
    docker exec -it roster_php npm run build
+   
    docker exec -it roster_php php artisan migrate
-   docker exec -it roster_php chown -R www-data:www-data /var/www/database 
+   
+   docker exec -it roster_php chown -R www-data:www-data /var/www/database
+   
    docker exec -it roster_php chmod -R 775 /var/www/database
-5. 
+   
+6. 
 
 
