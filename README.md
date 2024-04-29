@@ -7,8 +7,11 @@ Its also dockerized BUT keep in mind the docker settings are set only for testin
 1. Download the repository to your local machine
 2. copy file .env.example to the same location but under a different name: .env
 3. Build and run docker containers. You can do it by using single command.
+   
     a) enter to /docker directory
+   
     b) run command: docker-compose -p rooster up -d --build
+   
 
 4. execute other commands to install dependencies
    
@@ -26,6 +29,4 @@ Its also dockerized BUT keep in mind the docker settings are set only for testin
    
    docker exec -it roster_php chmod -R 775 /var/www/database
    
-6. 
-
 
