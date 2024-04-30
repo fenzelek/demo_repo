@@ -14,8 +14,8 @@ class ActivityResource extends JsonResource
             'type' => $this->Type,
             'from' => $this->From,
             'to' => $this->To,
-            'start' => Carbon::parse($this->Start)->format('H:i'),
-            'end' => Carbon::parse($this->End)->format('H:i'),
+            'start' => $this->Start ? Carbon::parse($this->Start)->format('H:i') : "",
+            'end' => $this->End ? Carbon::parse($this->End)->format('H:i') : "",
             'date' => Carbon::parse($this->Date)->format('Y/m/d'),
         ];
     }

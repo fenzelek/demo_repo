@@ -8,6 +8,7 @@ use App\Events\Listeners\ActivityProcessedListener;
 use App\Models\ValueObjects\ActivityType;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\Flight;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\FlightAndCheckIn;
+use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\Utilities\CheckTimeIdentifier;
 use DateTime;
 use DOMDocument;
 use DOMXPath;
@@ -46,7 +47,7 @@ class FlightAndCheckInTest extends TestCase
         $eventDispatcher->shouldReceive('dispatch')->twice()->with(ActivityProcessed::class);
 
         $app = $this->app;
-        $flightManager = new FlightAndCheckIn($eventDispatcher, $app);
+        $flightManager = new FlightAndCheckIn($eventDispatcher, $app, new CheckTimeIdentifier());
 
         // WHEN
         $flightManager->processActivity($domXPath, $domDocument->documentElement, $activityDate);
@@ -93,7 +94,6 @@ class FlightAndCheckInTest extends TestCase
         $this->assertEquals("10 January 2022 07:45", $start->format('d F Y H:i'));
         $this->assertEquals(null, $end);
         $this->assertEquals( ActivityType::CHECK_IN, $type);
-
     }
 
     /**

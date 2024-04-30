@@ -15,13 +15,19 @@ class Activity extends Model
         return Carbon::parse($value);
     }
 
-    public function getStartAttribute($value)
+    public function getStartAttribute($value):?Carbon
     {
-        return Carbon::parse($value);
+        if($value)
+            return Carbon::parse($value);
+
+        return null;
     }
 
-    public function getEndAttribute($value)
+    public function getEndAttribute($value):?Carbon
     {
-        return Carbon::parse($value);
+        if($value)
+            return Carbon::parse($value);
+
+        return null;
     }
 }

@@ -16,12 +16,12 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('FlightNumber');
+            $table->string('FlightNumber')->nullable();
             $table->string('Type');
             $table->string('From');
             $table->string('To');
-            $table->dateTime('Start');
-            $table->dateTime('End');
+            $table->dateTime('Start')->nullable();
+            $table->dateTime('End')->nullable();
             $table->date('Date');
             $table->timestamps();
 

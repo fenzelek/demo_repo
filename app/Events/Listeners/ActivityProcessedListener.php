@@ -25,8 +25,8 @@ class ActivityProcessedListener implements ShouldQueue
         $activity->type = $activityData->getType();
         $activity->from = $activityData->getFrom();
         $activity->to = $activityData->getTo();
-        $activity->start = $activityData->getStart()->format("Y/m/d H:i:s");
-        $activity->end = $activityData->getEnd()->format("Y/m/d H:i:s");
+        $activity->start = $activityData->getStart()?$activityData->getStart()->format("Y/m/d H:i:s"):null;
+        $activity->end = $activityData->getEnd()?$activityData->getEnd()->format("Y/m/d H:i:s"):null;
         $activity->date = $activityData->getDate();
 
         $activity->save();

@@ -6,6 +6,7 @@ use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\Flight;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\Standby;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\Unknown;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\Utilities\ActivityManagerFactory;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 /*
@@ -36,7 +37,7 @@ class ActivityManagerFactoryTest extends TestCase
         $factory = $this->app->make(ActivityManagerFactory::class);
 
         // WHEN
-        $activityManager = $factory->create($activityType);
+        $activityManager = $factory->create($activityType, null, null);
 
         // THEN
         $this->assertInstanceOf(Flight::class, $activityManager);
@@ -57,7 +58,7 @@ class ActivityManagerFactoryTest extends TestCase
         $factory = $this->app->make(ActivityManagerFactory::class);
 
         // WHEN
-        $activityManager = $factory->create($activityType);
+        $activityManager = $factory->create($activityType, new Carbon(), new Carbon());
 
         // THEN
         $this->assertInstanceOf(Standby::class, $activityManager);
@@ -78,7 +79,7 @@ class ActivityManagerFactoryTest extends TestCase
         $factory = $this->app->make(ActivityManagerFactory::class);
 
         // WHEN
-        $activityManager = $factory->create($activityType);
+        $activityManager = $factory->create($activityType, null, new Carbon());
 
         // THEN
         $this->assertInstanceOf(Unknown::class, $activityManager);

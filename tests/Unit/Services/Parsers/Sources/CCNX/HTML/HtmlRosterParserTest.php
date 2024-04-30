@@ -8,6 +8,7 @@ use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\Flight;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\ActivityManagers\Standby;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\HtmlRosterParser;
 use App\Services\Parsers\Sources\CCNX\HtmlDataFormat\Utilities\ActivityManagerFactory;
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
@@ -45,7 +46,10 @@ class HtmlRosterParserTest extends TestCase
         $parser = App()->make(HtmlRosterParser::class);
 
         //THEN
-        $factoryMock->shouldReceive('create')->with('OFF')->andReturn($dayOffManagerMock);
+        $factoryMock->shouldReceive('create')
+            ->with('OFF',null, null)
+            ->andReturn($dayOffManagerMock);
+
         $factoryMock->shouldReceive('create')->andReturn($otherActivities);
 
         //WHEN
@@ -75,7 +79,18 @@ class HtmlRosterParserTest extends TestCase
         $parser = App()->make(HtmlRosterParser::class);
 
         //THEN
-        $factoryMock->shouldReceive('create')->with('SBY')->andReturn($standbyManagerMock);
+        $factoryMock->shouldReceive('create')->with(
+            'SBY',
+            $this->logicalOr(
+                $this->isInstanceOf(Carbon::class),
+                $this->isNull()
+            ),
+            $this->logicalOr(
+                $this->isInstanceOf(Carbon::class),
+                $this->isNull()
+            )
+        )->andReturn($standbyManagerMock);
+
         $factoryMock->shouldReceive('create')->andReturn($otherActivities);
 
         //WHEN
@@ -104,9 +119,17 @@ class HtmlRosterParserTest extends TestCase
         $parser = App()->make(HtmlRosterParser::class);
 
         //THEN
-        $factoryMock->shouldReceive('create')
-                    ->with(Mockery::pattern('/^\w{2}\d+$/'))
-                    ->andReturn($flightManagerMock);
+        $factoryMock->shouldReceive('create')->with(
+            Mockery::pattern('/^\w{2}\d+$/'),
+            $this->logicalOr(
+                $this->isInstanceOf(Carbon::class),
+                $this->isNull()
+            ),
+            $this->logicalOr(
+                $this->isInstanceOf(Carbon::class),
+                $this->isNull()
+            )
+        )->andReturn($flightManagerMock);
 
         $factoryMock->shouldReceive('create')->andReturn($otherActivities);
 

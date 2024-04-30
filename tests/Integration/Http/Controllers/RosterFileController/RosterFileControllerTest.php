@@ -34,7 +34,7 @@ class RosterFileControllerTest extends TestCase
         // THEN
         $response->assertStatus(200);
         $rowsCreated = Activity::count();
-        $this->assertEquals(35, Activity::count());
+        $this->assertEquals(48, Activity::count());
     }
 
     /**
