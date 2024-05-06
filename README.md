@@ -1,4 +1,4 @@
-# Rooster app
+# Roster app
 This app is prepared only as a part of interview on Laravel programmer role
 It's based on Laravel 10. 
 Its also dockerized BUT keep in mind the docker settings are set only for testing/development purposes
